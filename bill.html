@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bill</title>
+</head>
+<body>
+  <h2>Bill</h2>
+  <ul id="items"></ul>
+  <h3 id="total">Total: ₹0</h3>
+  <button onclick="downloadBill()">Download Bill</button>
+
+  <script>
+    let itemsList = document.getElementById("items");
+    let totalDisplay = document.getElementById("total");
+    let total = 0;
+
+    let lastProduct = localStorage.getItem("lastProduct");
+    if (lastProduct) {
+      let parts = lastProduct.split("|");
+      let name = parts[0];
+      let price = parseFloat(parts[1]);
+
+      let li = document.createElement("li");
+      li.innerText = name + " - ₹" + price;
+      itemsList.appendChild(li);
+
+      total += price;
+      totalDisplay.innerText = "Total: ₹" + total;
+    }
+
+    function downloadBill() {
+      let content = itemsList.innerText + "\n" + totalDisplay.innerText;
+      let blob = new Blob([content], { type: "text/plain" });
+      let url = URL.createObjectURL(blob);
+      let a = document.createElement("a");
+      a.href = url;
+      a.download = "bill.txt";
+      a.click();
+    }
+  </script>
+</body>
+</html>
