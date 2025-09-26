@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Product</title>
+  <script src="https://cdn.jsdelivr.net/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <h2>Add Product</h2>
+  <input id="pname" placeholder="Product Name">
+  <input id="price" placeholder="Price" type="number">
+  <button onclick="makeBarcode()">Generate Barcode</button>
+  <br><br>
+  <svg id="barcode"></svg>
+
+  <script>
+    function makeBarcode() {
+      let name = document.getElementById("pname").value;
+      let price = document.getElementById("price").value;
+      let data = name + "|" + price;
+      JsBarcode("#barcode", data);
+      alert("Barcode created for " + name + " at price ₹" + price);
+    }
+  </script>
+</body>
+</html>
